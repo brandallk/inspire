@@ -1,8 +1,23 @@
 function QuoteController(){
 
-	var qs = new QuoteService()
+	var quoteService = new QuoteService()
 
-	qs.getQuote(function(quote){
-		console.log('What is the quote', quote)
+	var $parentDiv = $('#quote')
+	var quoteTmp = `
+		<p class="quote-text"></p>
+		<span class="quote-author"></span>
+	`
+
+	quoteService.getQuote(function(quote){
+		// console.log('What is the quote', quote)
+		var text = quote.quote
+		var author = quote.author
+		drawQuote(text, author)
 	})
+
+	function drawQuote(text, author) {
+		$parentDiv.html(quoteTmp)
+		$('.quote-text').html(`"${text}"`)
+		$('.quote-author').text(`-- ${author}`)
+	}
 }

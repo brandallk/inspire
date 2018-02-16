@@ -2,7 +2,7 @@ function WeatherController(){
 	
 	var weatherService = new WeatherService();
 
-	var $parentDiv = $('div#weather')
+	var $parentDiv = $('#weather')
 	var weatherTmp = `
 		<img class="weather-icon" src="" alt="weather icon">
 		<span class="weather-temp"></span>
@@ -21,9 +21,9 @@ function WeatherController(){
 
 	function drawWeather(iconSrc, tempF, loc) {
 		$parentDiv.html(weatherTmp)
-		$('img.weather-icon').attr("src", iconSrc)
-		$('span.weather-temp').text(tempF + "deg F")
-		$('span.weather-loc').text(loc)
+		$('.weather-icon').attr("src", iconSrc)
+		$('.weather-temp').text(tempF + "deg F")
+		$('.weather-loc').text(loc)
 	}
 
 }
