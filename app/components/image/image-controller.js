@@ -5,7 +5,7 @@ function ImageController() {
 	var $parentDiv = $('#body')
 
 	imageService.getImage(function(image){
-		console.log(image.large_url)
+		// console.log(image)
 		var imageUrl = image.large_url
 		drawBackground(imageUrl)
 	})

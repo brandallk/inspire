@@ -10,18 +10,18 @@ function TodoController() {
 
 	var $parentDiv = $('#todo')
 	var todoBaseTmp = `
-		<span class="todos-counter"></span>
+		<span class="todos-counter d-inline-block pb-3 ml-2"></span>
 		<form class="todos-form"></form>
-		<a class="show-add-form" href="#">New Todo</a>
+		<a class="show-add-form text-light" href="#">New Todo</a>
 	`
 
 	var addForm = `
 		<form class="add-todo">
 			<div class="form-group">
-				<label for="todo-title">New Todo</label>
-				<input id="todo-title" type="text" placeholder="New Todo" name="title">
+				<label for="todo-title" class="d-none">New Todo</label>
+				<input id="todo-title" class="form-control" type="text" placeholder="New Todo" name="title">
 			</div>
-			<button type="submit" class="submit">Add</button>
+			<button type="submit" class="submit btn btn-sm btn-light btn-block">Add</button>
 		</form>
 	`
 
@@ -45,9 +45,15 @@ function TodoController() {
 				}
 				var todoTmp = `
 					<div class="form-group todo">
-						<input class="todo-checkbox" type="checkbox" name="completed" ${todo.checked} data-todoid="${todo.id}">
-						<span class="todo-title ${addedClass}" name="todo">${todo.title}</span>
-						<a class="remove-todo" href="#" data-todoid="${todo.id}">remove</a>
+						<div>
+							<input class="todo-checkbox" type="checkbox" name="completed" ${todo.checked} data-todoid="${todo.id}">
+							<span class="todo-title ${addedClass}" name="todo">${todo.title}</span>
+						</div>
+						<div class="ml-2 d-flex align-items-center">
+							<a class="remove-todo text-light" href="#" data-todoid="${todo.id}">
+								<i class="remove-icon fas fa-minus-circle" data-todoid="${todo.id}"></i>
+							</a>
+						</div>
 					</div>
 				`
 				$('.todos-form').append(todoTmp)
@@ -118,7 +124,7 @@ function TodoController() {
 	function toggleTodoStatus(todoID) {
 
 		// asks the service to edit the todo status
-		todoService.toggleTodoStatus(todoID, getTodos)
+		todoService.toggleTodoStatus(todoID, draw)
 		// YEP THATS IT FOR ME
 	}
 

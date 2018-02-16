@@ -4,12 +4,84 @@
 }
 
 body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-position: center, center;
     background-size: cover;
 }
 
+a,
+a:hover,
+a:active,
+a:visited {
+    text-decoration: none;
+    color: white
+}
+
+#date,
 #weather,
 #quote,
 #todo {
-    background-color: white;
+    color: white;
+    background-color: rgba(69, 69, 69, 0.15);
+    border-radius: 5px;
+    padding: 0.5rem;
+}
+
+.time {
+    font-size: 7rem;
+    display: block;
+    text-align: center;
+}
+
+.greeting {
+    font-size: 2.5rem;
+    display: block;
+    text-align: center;
+}
+
+#weather {
+    position: absolute;
+    top: 2%;
+    right: 2%;
+}
+
+.weather-temp {
+    font-size: 2.5rem;
+}
+
+.weather-loc {
+    display: block;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+#quote {
+    position: absolute;
+    bottom: 2%;
+    width: 50%;
+    left: 25%;
+}
+
+.quote-text {
+    font-size: 1rem;
+}
+
+#todo {
+    position: absolute;
+    bottom: 2%;
+    right: 2%;
+    background-color: rgba(54, 54, 54, 0.9);
+    padding: 1rem;
+}
+
+.todos-counter {
+    color: rgba(255, 255, 255, 0.5)
+}
+
+.form-group.todo {
+    min-width: 11rem;
+    display: flex;
+    justify-content: space-between;
 }

@@ -22,7 +22,7 @@ function WeatherController(){
 	function drawWeather(iconSrc, tempF, loc) {
 		$parentDiv.html(weatherTmp)
 		$('.weather-icon').attr("src", iconSrc)
-		$('.weather-temp').text(tempF + "deg F")
+		$('.weather-temp').html(tempF + "&deg; F")
 		$('.weather-loc').text(loc)
 	}
 
