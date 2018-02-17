@@ -22,7 +22,8 @@ a:visited {
 #date,
 #weather,
 #quote,
-#todo {
+#todo,
+#settings {
     color: white;
     background-color: rgba(69, 69, 69, 0.15);
     border-radius: 5px;
@@ -84,4 +85,10 @@ a:visited {
     min-width: 11rem;
     display: flex;
     justify-content: space-between;
+}
+
+#settings{
+    position: absolute;
+    bottom: 2%;
+    left: 2%;
 }

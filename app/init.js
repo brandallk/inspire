@@ -5,6 +5,7 @@ var app = {
     quoteController: new QuoteController(),
     imageController: new ImageController(),
     todoController: new TodoController(),
-    dateController: new DateController()
+    dateController: new DateController(),
+    settingsController: new SettingsController()
   }
 }

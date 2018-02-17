@@ -30,7 +30,7 @@ function TodoService() {
 	this.getTodos = function (draw) {
 		$.get(baseUrl)
 			.then(function (res) { // <-- WHY IS THIS IMPORTANT????
-				console.log('getTodos res:', res)
+				// console.log('getTodos res:', res)
 				todoList = res
 				draw(res)
 			})
