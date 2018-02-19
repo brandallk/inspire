@@ -45,4 +45,27 @@ function DateController() {
     }
 
     getSettings()
+
+    // let Date = {
+    //     template: `
+    //         <div>
+    //             <span class="time">{{ clockTime }}</span>
+    //             <span class="greeting">Good {{ timeOfDay }}, {{ user }}!</span>
+    //         </div>
+    //     `,
+    //     data() {
+    //         return {
+    //             clockTime: '',
+    //             timeOfDay: '',
+    //             user: ''
+    //         }
+    //     }
+    // }
+
+    // let vue = new vue({
+    //     el: '#date',
+    //     components: {
+    //         'date': Date
+    //     }
+    // })
 }
