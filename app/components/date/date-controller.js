@@ -45,4 +45,72 @@ function DateController() {
     }
 
     getSettings()
+
+    // Attempted use of Vue, which works, but can't be successfully called from settings-controller.js
+    
+    // let Date = {
+    //     template: `
+    //         <div>
+    //             <span class="time">{{ clockTime }}</span>
+    //             <span class="greeting">Good {{ timeOfDay }}</span>
+    //             <span class="username" v-if="showUser">, {{ user }}</span>
+    //             <span class="greeting-end">!</span>
+    //         </div>
+    //     `,
+    //     data() {
+    //         return {
+    //             clockTime: '',
+    //             timeOfDay: '',
+    //             user: '',
+    //             showUser: false,
+    //             intervalID: null
+    //         }
+    //     },
+    //     methods: {
+    //         renewTime() {
+    //             var time = dateService.getTime(this.timeFormat)
+    //             this.clockTime = time.time
+    //             this.timeOfDay = time.timeOfDay
+    //         },
+    //         scheduleTimeUpdate() {
+    //             if (this.intervalID) {
+    //                 clearInterval(intervalID)
+    //             }
+    //             this.intervalID = setInterval( () => {
+    //                 // console.log('tick')
+    //                 this.renewTime()
+    //             }, 1000)
+    //         },
+    //         start() {
+    //             SettingsController.getSettings( (settings) => {
+    //                 if (settings) {
+    //                     this.timeFormat = settings.timeFormat
+    //                     this.user = settings.user !== '' ? settings.user : ''
+    //                     this.showUser = settings.user !== '' ? true : false
+    //                     this.renewTime()
+    //                     this.scheduleTimeUpdate()
+    //                 } else {
+    //                     this.clockTime = '00:00'
+    //                     this.timeOfDay = ''
+    //                     this.user = ''
+    //                 }
+    //             })
+    //         }
+    //     },
+    //     mounted() {
+    //         this.start()
+    //     }
+    // }
+
+    // let vue = new Vue({
+    //     el: '#date',
+    //     components: {
+    //         'date': Date
+    //     }
+    // })
+
+    // DateController.start = function() {
+    //     // This does not clear a previous intervalID
+    //     vue.$options.components.date.methods.start()
+    // }
 }

@@ -94,10 +94,12 @@ function SettingsController() {
                 if (res) {
                     WeatherController.getWeather(res.tempScale)
                     DateController.start(res.timeFormat, res.user)
+                    // DateController.start()
                     setTheme(res.theme)
                 } else {
                     WeatherController.getWeather("F")
                     DateController.start("12-hour", "")
+                    // DateController.start()
                     setTheme("dark")
                 }
             })

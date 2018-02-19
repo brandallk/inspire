@@ -94,9 +94,11 @@ a:visited {
     text-align: center;
 }
 
-.greeting {
+.greeting,
+.username,
+.greeting-end {
     font-size: 2.5rem;
-    display: block;
+    /* display: block; */
     text-align: center;
 }
 
