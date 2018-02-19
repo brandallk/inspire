@@ -2,10 +2,6 @@ function SettingsController() {
 
     var settingsService = new SettingsService()
 
-    SettingsController.getSettings = function(cb) {
-        settingsService.getSettings(cb)
-    }
-
     var $parentDiv = $('#settings')
     var formTmp = `
         <form class="edit-settings">
@@ -40,6 +36,10 @@ function SettingsController() {
 			<button type="button" class="settings-cancel btn btn-sm btn-light btn-block">Cancel</button>
 		</form>
     `
+
+    SettingsController.getSettings = function(cb) {
+        settingsService.getSettings(cb)
+    }
 
     function setTheme(theme) {
         var $themeComponents = $('body, #date, #weather, #quote')
