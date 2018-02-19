@@ -1,6 +1,6 @@
 function WeatherController(){
 	
-	var weatherService = new WeatherService();
+	var weatherService = new WeatherService()
 
 	var $parentDiv = $('#weather')
 	var weatherTmp = `
@@ -8,22 +8,41 @@ function WeatherController(){
 		<span class="weather-temp"></span>
 		<span class="weather-loc"></span>
 	`
-	
-	weatherService.getWeather(function(weather){
-		// console.log(weather);
-		var tempK = weather.main.temp
-		var tempF = Math.floor((tempK - 273.15) * 1.8 + 32)
-		var loc = weather.name
-		var iconCode = weather.weather[0].icon
-		var iconSrc = `http://openweathermap.org/img/w/${iconCode}.png`
-		drawWeather(iconSrc, tempF, loc)
-	})
 
-	function drawWeather(iconSrc, tempF, loc) {
+	function getSettings() {
+		SettingsController.getSettings( (settings) => {
+			if (settings) {
+				// console.log(settings)
+				WeatherController.getWeather(settings.tempScale)
+			} else {
+				// console.log('no settings')
+				WeatherController.getWeather("F")
+			}
+		})
+	}
+
+	WeatherController.getWeather = function(tempScale) {
+		weatherService.getWeather(function(weather){
+			// console.log(weather);
+			var baseTemp = weather.main.temp
+			var loc = weather.name
+			var iconCode = weather.weather[0].icon
+			var iconSrc = `http://openweathermap.org/img/w/${iconCode}.png`
+			drawWeather(iconSrc, baseTemp, tempScale, loc)
+		})
+	}
+
+	function drawWeather(iconSrc, baseTemp, tempScale, loc) {
+		var temp = {
+			K: Math.floor(baseTemp),
+			C: Math.floor(baseTemp - 273.15),
+			F: Math.floor((baseTemp - 273.15) * 1.8 + 32)
+		}
 		$parentDiv.html(weatherTmp)
 		$('.weather-icon').attr("src", iconSrc)
-		$('.weather-temp').html(tempF + "&deg; F")
+		$('.weather-temp').html(`${temp[tempScale]}&deg; ${tempScale}`)
 		$('.weather-loc').text(loc)
 	}
 
+	getSettings()
 }

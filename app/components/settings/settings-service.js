@@ -13,7 +13,7 @@ function SettingsService() {
     var currentSettings = {}
     var defaultSettings = {
         user: null,
-        timeFormat: "12h",
+        timeFormat: "12-hour",
         theme: "dark",
         tempScale: "F"
     }
@@ -25,6 +25,7 @@ function SettingsService() {
     }
     
     this.getDefaultSettings = function() {
+        // console.log('getting default settings:', defaultSettings)
         return defaultSettings
     }
     
@@ -45,7 +46,7 @@ function SettingsService() {
                 // console.log('found existing settings:', res)
                 this.updateSettings(settings, cb) // ...update it
             } else {
-                // console.log('found NO existing settings; creating new')
+                // console.log('found NO existing settings; creating new:', settings)
                 this.createSettings(settings, cb) // ...otherwise, create it
             }
         })

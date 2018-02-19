@@ -1,6 +1,6 @@
 function DateService() {
 
-    this.getTime = function() {
+    this.getTime = function(timeFormat) {
         var date = new Date()
         var hours = date.getHours()
         var mins = date.getMinutes()
@@ -12,17 +12,19 @@ function DateService() {
         }
     
         if (period === "pm") {
-            hours -= 12
             timeOfDay = "afternoon"
-            if (hours > 5) {
+            if (hours > 17) {
                 timeOfDay = "evening"
+            }
+            if (timeFormat === "12-hour") {
+                hours -= 12
             }
         } else {
             timeOfDay = "morning"
         }
 
         var time = {
-            time: `${hours}:${mins} ${period}`,
+            time: timeFormat === "12-hour" ? `${hours}:${mins} ${period}` : `${hours}:${mins}`,
             timeOfDay: timeOfDay
         }
     

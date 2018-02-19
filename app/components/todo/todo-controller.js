@@ -10,7 +10,10 @@ function TodoController() {
 
 	var $parentDiv = $('#todo')
 	var todoBaseTmp = `
-		<span class="todos-counter d-inline-block pb-3 ml-2"></span>
+		<div class="d-flex justify-content-between">
+			<span class="todos-counter d-inline-block pb-3 ml-2"></span>
+			<span class="todos-dismiss d-inline-block pb-3 d-flex align-items-center"><a href="#" class="text-light"><i class="fas fa-times-circle"></i></a></span>
+		</div>
 		<form class="todos-form"></form>
 		<a class="show-add-form text-light" href="#">New Todo</a>
 	`
@@ -19,7 +22,7 @@ function TodoController() {
 		<form class="add-todo">
 			<div class="form-group">
 				<label for="todo-title" class="d-none">New Todo</label>
-				<input id="todo-title" class="form-control" type="text" placeholder="New Todo" name="title">
+				<input id="todo-title" class="form-control" type="text" placeholder="(write task here)" name="title">
 			</div>
 			<button type="submit" class="submit btn btn-sm btn-light btn-block">Add</button>
 		</form>
@@ -29,6 +32,27 @@ function TodoController() {
 	function getTodos(){
 		//FYI DONT EDIT ME :)
 		todoService.getTodos(draw)
+	}
+
+    function drawToggleBtn() {
+        $parentDiv.html(`<a href="#" class="todos-toggle">Todos</a>`)
+        listenForToggleOpen()
+	}
+	
+	function listenForToggleOpen() {
+		var $toggleBtn = $('.todos-toggle')
+        $toggleBtn.on('click', (evt) => {
+            evt.preventDefault()
+            getTodos()
+        })
+	}
+
+	function listenForToggleClose() {
+		var $toggleBtn = $('.todos-dismiss')
+        $toggleBtn.on('click', (evt) => {
+            evt.preventDefault()
+            drawToggleBtn()
+        })
 	}
 
 	function draw(todos) {
@@ -63,6 +87,7 @@ function TodoController() {
 		listenForNewTodo()
 		listenForRemoveTodo()
 		listenForTodoStatusChange()
+		listenForToggleClose()
 	}
 
 	function showAddForm() {
@@ -136,5 +161,5 @@ function TodoController() {
 	}
 
 	// IF YOU WANT YOUR TODO LIST TO DRAW WHEN THE PAGE FIRST LOADS WHAT SHOULD YOU CALL HERE???
-	getTodos()
+	drawToggleBtn()
 }

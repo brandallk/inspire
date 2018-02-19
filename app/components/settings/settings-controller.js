@@ -1,10 +1,15 @@
 function SettingsController() {
 
     var settingsService = new SettingsService()
+
+    SettingsController.getSettings = function(cb) {
+        settingsService.getSettings(cb)
+    }
+
     var $parentDiv = $('#settings')
     var formTmp = `
         <form class="edit-settings">
-            <f3 class="text-center">Settings</f3>
+            <h3 class="text-center">Settings</h3>
 			<div class="form-group">
 				<label for="set-user" class="">Username:</label>
 				<input id="set-user" class="form-control" type="text" placeholder="Your name" name="user">
@@ -31,18 +36,34 @@ function SettingsController() {
                     <option value="K">Kelvin</option>
                 </select>
 			</div>
-			<button type="submit" class="submit btn btn-sm btn-light btn-block">Submit</button>
+			<button type="submit" class="submit btn btn-sm btn-dark btn-block">Submit</button>
+			<button type="button" class="settings-cancel btn btn-sm btn-light btn-block">Cancel</button>
 		</form>
     `
 
-    function drawToggleIcon() { console.log('drawing toggle icon')
+    function setTheme(theme) {
+        var $themeComponents = $('body, #date, #weather, #quote')
+        if (theme === "light") {
+            $themeComponents.each( function() {
+                $(this).removeClass('dark')
+                $(this).addClass('light')
+            })
+        } else {
+            $themeComponents.each( function() {
+                $(this).removeClass('light')
+                $(this).addClass('dark')
+            })
+        }
+    }
+
+    function drawToggleIcon() {
         $parentDiv.html(`<a href="#" class="settings-toggle"><i class="fas fa-cog"></i></a>`)
         listenForToggle()
     }
 
-    function listenForToggle() { console.log('listening for toggle')
-        var $toggleBtn = $('.settings-toggle');  console.log('toggle icon:', $toggleBtn)
-        $toggleBtn.on('click', (evt) => { console.log('click on toggle icon')
+    function listenForToggle() {
+        var $toggleBtn = $('.settings-toggle')
+        $toggleBtn.on('click', (evt) => {
             evt.preventDefault()
             settingsService.getSettings(drawSettingsForm)
         })
@@ -55,6 +76,7 @@ function SettingsController() {
         $('#set-theme').get(0).value = settings.theme
         $('#set-tempscale').get(0).value = settings.tempScale
         listenForSettingChange()
+        listenForFormCancel()
     }
 
     function listenForSettingChange() {
@@ -67,20 +89,39 @@ function SettingsController() {
                 theme: $form.get(0).theme.value,
                 tempScale: $form.get(0).tempscale.value
             }
-            settingsService.setSettings(settings, drawToggleIcon)
+            settingsService.setSettings(settings, (res) => {
+                drawToggleIcon()
+                if (res) {
+                    WeatherController.getWeather(res.tempScale)
+                    DateController.start(res.timeFormat, res.user)
+                    setTheme(res.theme)
+                } else {
+                    WeatherController.getWeather("F")
+                    DateController.start("12-hour", "")
+                    setTheme("dark")
+                }
+            })
         })
     }
 
-    this.getSettings = function() {
-        settingsService.getSettings( (res) => {
-            // if a settings object already exists on the server...
-            if (res) {
-                return res // ... return it
-            } else {
-                return settingsService.getDefaultSettings() // ...otherwise return defaults
-            }
+    function listenForFormCancel() {
+        var $cancelBtn = $('.settings-cancel')
+        $cancelBtn.on('click', () => {
+            drawToggleIcon()
         })
     }
 
-    settingsService.setSettings(settingsService.getDefaultSettings(), drawToggleIcon)
+    settingsService.getSettings( res => {
+        if (res) {
+            settingsService.setSettings(res, (res) => {
+                drawToggleIcon()
+                setTheme(res.theme)
+            })
+        } else {
+            settingsService.setSettings(settingsService.getDefaultSettings(), (res) => {
+                drawToggleIcon()
+                setTheme("dark")
+            })
+        }
+    })
 }
